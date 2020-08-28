@@ -1,0 +1,141 @@
+{include file="public/header" /}
+<style>
+    a{color: #0a0a0a;}
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>微信号-复制数列表</h5>
+        
+        </div>
+        
+        <div class="ibox-content">
+
+            <div style="clear: both"></div>
+            <!--搜索框结束-->
+            <div class="col-sm-2">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-cogs"></i> 今天信息
+                    </div>
+                    <div class="panel-body">
+
+                              <!--{volist name="list" id="vo"}-->
+
+                                <p style="margin: 0"><b>{$vo.wxnum}</b> : <span style="color: #2f2f2f">{$vo.total}</span></p>
+
+                            <!--{/volist}-->
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-cogs"></i> 昨天信息
+                    </div>
+                    <div class="panel-body">
+
+
+                            <!--{volist name="list1" id="vo"}-->
+
+                            <p style="margin: 0"><b>{$vo.wxnum}</b> : <span style="color: #2f2f2f">{$vo.total}</span></p>
+
+                            <!--{/volist}-->
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-cogs"></i> 本周信息
+                    </div>
+                    <div class="panel-body">
+
+
+                            <!--{volist name="week" id="vo"}-->
+
+                            <p style="margin: 0"><b>{$vo.wxnum}</b> : <span style="color: #2f2f2f">{$vo.total}</span></p>
+
+                            <!--{/volist}-->
+
+                    </div>
+                </div>
+            </div>
+
+            <div style="clear: both"></div>
+            
+            <div class="hr-line-dashed"></div>
+            
+            
+            <div class="example-wrap">
+                
+                
+                <p><a href="{:url('Article/today')}">今天数据</a>&nbsp;&nbsp;
+                <a href="{:url('Article/yesterday')}">昨天数据</a>&nbsp;&nbsp;
+                <a href="{:url('Article/excel')}">全部数据</a></p>
+                
+                
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="long-tr">
+                        <th width="10%">创建时间</th>
+                        <th width="10%">IP地址</th>
+                        <th width="10%">IP地区</th>
+                        <th width="5%">微信号</th>
+                        <th width="5%">操作</th>
+                        <th width="10%">关键字</th>
+                        <th width="10%">引擎</th>
+                        <th width="20%">URL链接</th>
+                    
+                    </tr>
+                    </thead>
+                    <!--{volist name="data" id="vo"}-->
+                    <tr class="long-td">
+                        <td>{$vo.createtime|date='Y-m-d H:i:s',###}</td>
+                        <td>{$vo.ipAddr}</td>
+                        <td>{$vo.address}</td>
+                        <td>{$vo.wxnum}</td>
+                        <td>{$vo.ope}</td>
+                        <td>{$vo.keyword}</td>
+                        <td>{$vo.engine}</td>
+                        <td><a href="{$vo.url}" target="_blank">{$vo.url}</a></td>
+                    </tr>
+                    <!--{/volist}-->
+                    
+                    
+                    <tbody id="list-content"></tbody>
+                </table>
+                <div style="text-align:right;">
+                    {$data->render()}
+                </div>
+                <div style="text-align: right;">
+                    共{$count}条数据,第{$Nowpage}页，共{$allpage}页
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{include file="public/footer" /}
+<script>
+    $(document).ready(function () {
+        $(".table").dataTable();
+        var oTable = $("#editable").dataTable();
+        oTable.$("td").editable("../example_ajax.php", {
+            "callback": function (sValue, y) {
+                var aPos = oTable.fnGetPosition(this);
+                oTable.fnUpdate(sValue, aPos[0], aPos[1])
+            }, "submitdata": function (value, settings) {
+                return {"row_id": this.parentNode.getAttribute("id"), "column": oTable.fnGetPosition(this)[2]}
+            }, "width": "90%", "height": "100%"
+        })
+    });
+</script>
+
+</body>
+</html>

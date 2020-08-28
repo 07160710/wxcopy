@@ -1,0 +1,98 @@
+{include file="public/header"/}
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="alert alert-danger alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <div>尊敬的用户<span id="weather"></span></div>
+    </div>
+
+    <!-- 中间折线 -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-sm-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-cogs"></i> 微信号复制信息
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered" style="word-wrap:break-word;word-break:break-all;">
+                            <thead>
+                            <tr class="long-tr">
+                                <th width="10%">微信号</th>
+                                <th width="10%">合计</th>
+                            </tr>
+                            </thead>
+                            <!--{volist name="wxnum" id="vo"}-->
+                            <tr class="long-td">
+                                <td style="color: #4c4c4c">{$vo.wxnum}</td>
+                                <td style="color: #4c4c4c">{$vo.total}</td>
+                            </tr>
+                            <!--{/volist}-->
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-cogs"></i>推广户信息
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered" style="word-wrap:break-word;word-break:break-all;">
+                            <thead>
+                            <tr class="long-tr">
+                                <th>推广户</th>
+                                <th>合计</th>
+                            </tr>
+                            </thead>
+                            <!--{volist name="list" id="vo"}-->
+                            <tr class="long-td">
+                                <td>{$vo.account}</td>
+                                <td>{$vo.total}</td>
+                            </tr>
+                            <!--{/volist}-->
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-cogs"></i> 端口访问信息
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered" style="word-wrap:break-word;word-break:break-all;">
+                            <thead>
+                            <tr class="long-tr">
+                                <th width="10%">搜索引擎</th>
+                                <th width="10%">合计</th>
+                            </tr>
+                            </thead>
+                            <!--{volist name="account" id="vo"}-->
+                            <tr class="long-td">
+                                <td style="color: #4c4c4c">{$vo.engine}</td>
+                                <td style="color: #4c4c4c">{$vo.total}</td>
+                            </tr>
+                            <!--{/volist}-->
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{include file="public/footer" /}
+<script src="/static/admin/js/jquery.leoweather.min.js"></script>
+
+<script type="text/javascript">
+    $('#weather').leoweather({format:'，{时段}好！<span id="colock">现在时间是：<strong>{年}年{月}月{日}日 星期{周} {时}:{分}:{秒}</strong></span> '});
+</script>
+
+</body>
+</html>
